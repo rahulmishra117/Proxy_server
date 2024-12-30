@@ -43,13 +43,14 @@ app.get('/proxy', async (req, res) => {
     return res.status(429).json({ error: 'Rate limit exceeded. Try again later.' });
   }
 
- 
+  console.log("Cached Data process start ");
+
   const cachedData = cache.get(cacheKey);
   if (cachedData) {
-    console.log('Serving from cache');
+    console.log(' \ =========  Serving from cache ================ \ ');
     return res.json(cachedData);
   }
-
+  
   try {
     const response = await axios.get(API_URL);
     cache.set(cacheKey, response.data);
